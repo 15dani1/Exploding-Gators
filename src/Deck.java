@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -5,6 +7,7 @@ public class Deck {
 
     public static HashMap<Integer, String> cards = new HashMap<>();
     public static HashMap<String, Integer> cardCount = new HashMap<>();
+    public static ArrayList<Integer> drawPile;
 
     int numPlayers = 0;
     //5 cards per player
@@ -52,12 +55,48 @@ public class Deck {
 
     }
 
-    public void createHand(){
-        Random rand = new Random();
-        int randInt = rand.nextInt(8) + 3;
-        //String currCard = cards.get(randInt);
+    public HashMap<Integer, String> getCards(){
+        return Deck.cards;
+    }
 
-        System.out.println(randInt);
+    public ArrayList<Integer> createHand(){
+        Random rand = new Random();
+        ArrayList<Integer> hand = new ArrayList<>(5);
+        hand.add(1);
+        for(int i = 0; i < 4; i++){
+            boolean notassigned = true;
+            while(notassigned) {
+                int randInt = rand.nextInt(8) + 3; //Random number between 3 and 10
+                if (cardCount.get(cards.get(randInt)) > 0) {
+                    hand.add(randInt);
+                    String currentCard = cards.get(randInt);
+                    cardCount.put(currentCard, cardCount.get(currentCard) - 1);
+                    notassigned = false;
+                }
+            }
+        }
+
+        return hand;
+    }
+
+    public ArrayList<Integer> createDrawPile(){
+        drawPile = new ArrayList<>();
+        for(int i = 0; i < 10; i++){
+            while(cardCount.get(cards.get(i+1)) != 0){
+                drawPile.add(i+1);
+                cardCount.put(cards.get(i+1), cardCount.get(cards.get(i+1)) - 1);
+            }
+        }
+        Collections.shuffle(drawPile);
+        return drawPile;
+    }
+
+    public String getCardName(int i){
+        return cards.get(i);
+    }
+
+    public ArrayList<Integer> getDrawPile(){
+        return Deck.drawPile;
     }
 
 
