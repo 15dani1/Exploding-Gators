@@ -8,6 +8,7 @@ public class Main {
     public static int numPlayers = 0;
     public static HashMap<Integer, Player> players = new HashMap<>();
     public static Deck dc;
+    public static Abilities ab;
 
     public static void print(){
         for(Integer i : players.keySet()){
@@ -54,14 +55,37 @@ public class Main {
                             j++;
                         }
                         int c2 = sc.nextInt();
+                        if(hand.get(c2-1).equals("See the Future")){
+                            ab.seeFuture();
+                        }
+                        else if(hand.get(c2-1).equals("Skip")){
+                            System.out.println("Your turn is complete!");
+                            i++;
+                            for(int k = 0; k < 10; k++){
+                                System.out.println("");
+                            }
+                            c1 = 4;
+                        }
+                        else if(hand.get(c2-1).equals("Shuffle")){
+                            dc.shuffleDrawPile();
+                        }
+                        else if(hand.get(c2-1).equals("Attack")){
+                            System.out.println("Your turn is complete!");
+                            i++;
+                            for(int k = 0; k < 10; k++){
+                                System.out.println("");
+                            }
+                            c1 = 4;
+                        }
                         currentPlayer.removeCard(c2 - 1);
+
                     }
                     else if (c1 == 3){
                         ArrayList<Integer> drawPile = dc.getDrawPile();
                         int newCard = drawPile.remove(0);
                         currentPlayer.deck.add(newCard);
                         System.out.println("The card you drew is: " + dc.getCardName(newCard));
-                        if(newCard == 2){
+                        if(newCard == 2 && !currentPlayer.deck.contains(1)){
                             System.out.println("Oh no, you got an Exploding Kitten! You are out of the game :(");
                             players.remove(i);
                             if(players.size() == 1){
@@ -70,6 +94,11 @@ public class Main {
                                 System.out.println("The winner is: " + winner.getValue().name);
                                 System.exit(0);
                             }
+                        }
+                        else if(newCard == 2){
+                            currentPlayer.deck.remove(1);
+                            currentPlayer.deck.remove(2);
+                            System.out.println("Oh no, you got an Exploding Kitten! But you have been saved because of your Diffuse card :)");
                         }
                     }
                     else if(c1 == 4){
@@ -87,6 +116,7 @@ public class Main {
     public static void deckCreation(){
 
         dc = new Deck(numPlayers);
+        ab = new Abilities(dc);
         System.out.println("Enter the names of each player below:");
         Scanner sc = new Scanner(System.in);
         for(int i = 0; i < numPlayers; i++){

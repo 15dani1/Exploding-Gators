@@ -47,11 +47,11 @@ public class Deck {
         cards.put(3, "See the Future");
         cards.put(4, "Skip");
         cards.put(5, "Shuffle");
-        cards.put(6, "Attack");
-        cards.put(7, "Taco Cat");
-        cards.put(8, "Hairy Potato Cat");
-        cards.put(9, "Draw from Bottom");
-        cards.put(10, "Alter the Future");
+        cards.put(6, "Attack"); //End turn, next player draws 2 then end
+        cards.put(7, "Taco Cat"); // 2 of them - gets a random card from next player's deck
+        cards.put(8, "Hairy Potato Cat"); // 2 of them - gets a random card from next player's deck
+        cards.put(9, "Draw from Bottom"); //Draw from the bottom and end
+        cards.put(10, "Alter the Future"); //Change order of the first 3 cards, draw a card, end.
 
     }
 
@@ -89,6 +89,11 @@ public class Deck {
         }
         Collections.shuffle(drawPile);
         return drawPile;
+    }
+
+    public void shuffleDrawPile(){
+
+        Collections.shuffle(Deck.drawPile);
     }
 
     public String getCardName(int i){
