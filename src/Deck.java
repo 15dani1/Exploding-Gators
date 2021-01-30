@@ -1,8 +1,11 @@
 import java.util.HashMap;
+import java.util.Random;
 
 public class Deck {
 
     public static HashMap<Integer, String> cards = new HashMap<>();
+    public static HashMap<String, Integer> cardCount = new HashMap<>();
+
     int numPlayers = 0;
     //5 cards per player
     //1 must be diffuse
@@ -19,12 +22,22 @@ public class Deck {
     //10. Alter the Future (rearrange the top 3 cards in your order of choosing) [3]
 
     public Deck(int numPlayers){
-        createCards();
         this.numPlayers = numPlayers;
-        
+        createCards();
     }
 
-    public static void createCards(){
+    public void createCards(){
+
+        cardCount.put("Diffuse", this.numPlayers + 1);
+        cardCount.put("Exploding Kitten", this.numPlayers);
+        cardCount.put("See the Future", 5);
+        cardCount.put("Skip", 6);
+        cardCount.put("Shuffle", 4);
+        cardCount.put("Attack", 7);
+        cardCount.put("Taco Cat", 6);
+        cardCount.put("Hairy Potato Cat", 6);
+        cardCount.put("Draw from Bottom", 4);
+        cardCount.put("Alter the Future", 3);
 
         cards.put(1, "Diffuse");
         cards.put(2, "Exploding Kitten");
@@ -39,7 +52,13 @@ public class Deck {
 
     }
 
+    public void createHand(){
+        Random rand = new Random();
+        int randInt = rand.nextInt(8) + 3;
+        //String currCard = cards.get(randInt);
 
+        System.out.println(randInt);
+    }
 
 
 }

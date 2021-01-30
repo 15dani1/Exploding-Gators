@@ -4,8 +4,15 @@ public class Main {
 
     public static int numPlayers = 0;
 
-
-
+    public static void deckCreation(){
+        Deck dc = new Deck(numPlayers);
+        dc.createHand();
+        dc.createHand();
+        dc.createHand();
+        dc.createHand();
+        dc.createHand();
+        dc.createHand();
+    }
 
 
     public static void players(){
@@ -25,7 +32,7 @@ public class Main {
             System.exit(0);
         }
         else {
-
+            deckCreation();
         }
     }
 

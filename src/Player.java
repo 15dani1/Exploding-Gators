@@ -5,7 +5,7 @@ public class Player {
     public static ArrayList<Integer> deck;
 
     public Player(){
-        deck =
+        //deck =
     }
 
     public static ArrayList<Integer> getDeck(){
