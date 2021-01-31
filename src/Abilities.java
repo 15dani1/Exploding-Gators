@@ -18,17 +18,6 @@ public class Abilities {
         System.out.println();
     }
 
-    public void attack(){
-
-    }
-
-    public void tacoCat(){
-
-    }
-
-    public void hairyCat(){
-
-    }
 
     public String alterTheFuture(){
         System.out.println("The next 3 cards in the deck are: ");

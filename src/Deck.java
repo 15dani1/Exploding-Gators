@@ -32,24 +32,24 @@ public class Deck {
     public void createCards(){
 
         cardCount.put("Defuse", this.numPlayers + 1);
-        cardCount.put("Exploding Kitten", this.numPlayers);
+        cardCount.put("Exploding Gator", 2*this.numPlayers);
         cardCount.put("See the Future", 5);
         cardCount.put("Skip", 6);
         cardCount.put("Shuffle", 4);
         cardCount.put("Attack", 7);
-        cardCount.put("Taco Cat", 6);
-        cardCount.put("Hairy Potato Cat", 6);
+        cardCount.put("Gator Bait", 6);
+        cardCount.put("Spikey Boy", 6);
         cardCount.put("Draw from Bottom", 4);
         cardCount.put("Alter the Future", 3);
 
         cards.put(1, "Defuse");
-        cards.put(2, "Exploding Kitten");
+        cards.put(2, "Exploding Gator");
         cards.put(3, "See the Future");
         cards.put(4, "Skip");
         cards.put(5, "Shuffle");
         cards.put(6, "Attack");
-        cards.put(7, "Taco Cat"); // 2 of them - gets a random card from next player's deck
-        cards.put(8, "Hairy Potato Cat"); // 2 of them - gets a random card from next player's deck
+        cards.put(7, "Gator Bait"); // 2 of them - gets a random card from next player's deck
+        cards.put(8, "Spikey Boy"); // 2 of them - gets a random card from next player's deck
         cards.put(9, "Draw from Bottom");
         cards.put(10, "Alter the Future");
 

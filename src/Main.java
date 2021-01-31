@@ -54,10 +54,11 @@ public class Main {
                     System.out.println("1. View your hand.");
                     System.out.println("2. Choose a card to play.");
                     System.out.println("3. Draw from deck");
+                    System.out.println("4. Quit Game");
                     c1 = sc.nextInt();
                     if (c1 == 1) {
                         ArrayList<String> hand = myHand(i);
-                        System.out.println(hand);
+                        System.out.println("Your cards are: " + hand);
                     }
                     else if (c1 == 2) {
                         System.out.println("Select the card you want to play. Type the number");
@@ -97,9 +98,9 @@ public class Main {
                            String[] res = nums.split(" ");
                            dc.changeDrawPile(res);
                         }
-                        else if(hand.get(c2-1).equals("Taco Cat")){
+                        else if(hand.get(c2-1).equals("Gator Bait")){
                             currentPlayer.removeCard(c2 - 1);
-                            if(hand.contains("Taco Cat")){
+                            if(hand.contains("Gator Bait")){
                                 Player nextPlayer;
                                 if(players.size() > i + 1){
                                     nextPlayer = players.get(0);
@@ -108,16 +109,16 @@ public class Main {
                                     nextPlayer = players.get(i+1);
                                 }
                                 currentPlayer.deck.add(nextPlayer.getRandomCard());
-                                currentPlayer.removeCard(hand.indexOf("Taco Cat"));
+                                currentPlayer.removeCard(hand.indexOf("Gator Bait"));
                             }
                             else{
                                 System.out.println("Sorry you can't use this card without a pair.");
                             }
                             continue;
                         }
-                        else if(hand.get(c2-1).equals("Hairy Potato Cat")){
+                        else if(hand.get(c2-1).equals("Spikey Boy")){
                             currentPlayer.removeCard(c2 - 1);
-                            if(hand.contains("Hairy Potato Cat")){
+                            if(hand.contains("Spikey Boy")){
                                 Player nextPlayer;
                                 if(players.size() > i){
                                     nextPlayer = players.get(0);
@@ -126,7 +127,7 @@ public class Main {
                                     nextPlayer = players.get(i+1);
                                 }
                                 currentPlayer.deck.add(nextPlayer.getRandomCard());
-                                currentPlayer.removeCard(hand.indexOf("Hairy Potato Cat"));
+                                currentPlayer.removeCard(hand.indexOf("Spikey Boy"));
                             }
                             else{
                                 System.out.println("Sorry you can't use this card without a pair.");
@@ -142,6 +143,10 @@ public class Main {
                         i++;
                         System.out.println();
                     }
+                    else if(c1 == 4){
+                        System.out.println("Thank you for playing the game!");
+                        System.exit(0);
+                    }
                 }
 
             }
@@ -152,7 +157,7 @@ public class Main {
         currentPlayer.deck.add(newCard);
         System.out.println("The card you drew is: " + dc.getCardName(newCard));
         if(newCard == 2 && !currentPlayer.deck.contains(1)){
-            System.out.println("Oh no, you got an Exploding Kitten! You are out of the game :(");
+            System.out.println("Oh no, you got an Exploding Gator! You are out of the game :(");
             players.remove(i);
             if(players.size() == 1){
                 System.out.println("The game is over!");
@@ -165,7 +170,7 @@ public class Main {
 
             currentPlayer.deck.remove(currentPlayer.deck.indexOf(newCard));
             currentPlayer.deck.remove(currentPlayer.deck.indexOf(1));
-            System.out.println("Oh no, you got an Exploding Kitten! But you have been saved because of your Diffuse card :)");
+            System.out.println("Oh no, you got an Exploding Gator! But you have been saved because of your Diffuse card :)");
         }
         System.out.println("Your turn has ended!");
     }
