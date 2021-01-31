@@ -31,7 +31,7 @@ public class Deck {
 
     public void createCards(){
 
-        cardCount.put("Diffuse", this.numPlayers + 1);
+        cardCount.put("Defuse", this.numPlayers + 1);
         cardCount.put("Exploding Kitten", this.numPlayers);
         cardCount.put("See the Future", 5);
         cardCount.put("Skip", 6);
@@ -42,16 +42,16 @@ public class Deck {
         cardCount.put("Draw from Bottom", 4);
         cardCount.put("Alter the Future", 3);
 
-        cards.put(1, "Diffuse");
+        cards.put(1, "Defuse");
         cards.put(2, "Exploding Kitten");
         cards.put(3, "See the Future");
         cards.put(4, "Skip");
         cards.put(5, "Shuffle");
-        cards.put(6, "Attack"); //End turn, next player draws 2 then end
+        cards.put(6, "Attack");
         cards.put(7, "Taco Cat"); // 2 of them - gets a random card from next player's deck
         cards.put(8, "Hairy Potato Cat"); // 2 of them - gets a random card from next player's deck
-        cards.put(9, "Draw from Bottom"); //Draw from the bottom and end
-        cards.put(10, "Alter the Future"); //Change order of the first 3 cards, draw a card, end.
+        cards.put(9, "Draw from Bottom");
+        cards.put(10, "Alter the Future");
 
     }
 
@@ -89,6 +89,19 @@ public class Deck {
         }
         Collections.shuffle(drawPile);
         return drawPile;
+    }
+
+    public void changeDrawPile(String[] res){
+        int a = Integer.parseInt(res[0]);
+        int b = Integer.parseInt(res[1]);
+        int c = Integer.parseInt(res[2]);
+        int a1 = Deck.drawPile.get(a-1);
+        int b1 = Deck.drawPile.get(b-1);
+        int c1 = Deck.drawPile.get(c-1);
+
+        Deck.drawPile.set(0, a1);
+        Deck.drawPile.set(1, b1);
+        Deck.drawPile.set(2, c1);
     }
 
     public void shuffleDrawPile(){

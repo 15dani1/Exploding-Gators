@@ -28,19 +28,32 @@ public class Main {
     }
 
     public static void game(){
+        boolean draw2 = false;
         int i = 1;
         while(players.size() > 1){
+            if(i > players.size()){
+                i = 1;
+            }
             Scanner sc = new Scanner(System.in);
             Player currentPlayer = players.get(i);
             System.out.println("Hello " + currentPlayer.name + ", are you ready? Enter 1.");
             if(sc.next().equals("1")){
                 int c1 = 0;
-                while(c1 != 4) {
+                while(c1 != 3) {
+                    if(draw2){
+                        ArrayList<Integer> drawPile = dc.getDrawPile();
+                        int newCard = drawPile.remove(0);
+                        drawCard(i, currentPlayer, newCard);
+                        newCard = drawPile.remove(0);
+                        drawCard(i, currentPlayer, newCard);
+                        i++;
+                        draw2 = false;
+                        break;
+                    }
                     System.out.println("Select the following options:");
                     System.out.println("1. View your hand.");
                     System.out.println("2. Choose a card to play.");
                     System.out.println("3. Draw from deck");
-                    System.out.println("4. End turn");
                     c1 = sc.nextInt();
                     if (c1 == 1) {
                         ArrayList<String> hand = myHand(i);
@@ -61,10 +74,8 @@ public class Main {
                         else if(hand.get(c2-1).equals("Skip")){
                             System.out.println("Your turn is complete!");
                             i++;
-                            for(int k = 0; k < 10; k++){
-                                System.out.println("");
-                            }
-                            c1 = 4;
+                            System.out.println();
+                            c1 = 3;
                         }
                         else if(hand.get(c2-1).equals("Shuffle")){
                             dc.shuffleDrawPile();
@@ -72,45 +83,90 @@ public class Main {
                         else if(hand.get(c2-1).equals("Attack")){
                             System.out.println("Your turn is complete!");
                             i++;
-                            for(int k = 0; k < 10; k++){
-                                System.out.println("");
+                            System.out.println();
+                            draw2 = true;
+                            c1 = 3;
+                        }
+                        else if(hand.get(c2-1).equals("Draw from Bottom")){
+                            ArrayList<Integer> drawPile = dc.getDrawPile();
+                            int newCard = drawPile.remove(drawPile.size()-1);
+                            drawCard(i, currentPlayer, newCard);
+                        }
+                        else if(hand.get(c2-1).equals("Alter the Future")){
+                           String nums = ab.alterTheFuture();
+                           String[] res = nums.split(" ");
+                           dc.changeDrawPile(res);
+                        }
+                        else if(hand.get(c2-1).equals("Taco Cat")){
+                            currentPlayer.removeCard(c2 - 1);
+                            if(hand.contains("Taco Cat")){
+                                Player nextPlayer;
+                                if(players.size() > i + 1){
+                                    nextPlayer = players.get(0);
+                                }
+                                else{
+                                    nextPlayer = players.get(i+1);
+                                }
+                                currentPlayer.deck.add(nextPlayer.getRandomCard());
+                                currentPlayer.removeCard(hand.indexOf("Taco Cat"));
                             }
-                            c1 = 4;
+                            else{
+                                System.out.println("Sorry you can't use this card without a pair.");
+                            }
+                            continue;
+                        }
+                        else if(hand.get(c2-1).equals("Hairy Potato Cat")){
+                            currentPlayer.removeCard(c2 - 1);
+                            if(hand.contains("Hairy Potato Cat")){
+                                Player nextPlayer;
+                                if(players.size() > i){
+                                    nextPlayer = players.get(0);
+                                }
+                                else{
+                                    nextPlayer = players.get(i+1);
+                                }
+                                currentPlayer.deck.add(nextPlayer.getRandomCard());
+                                currentPlayer.removeCard(hand.indexOf("Hairy Potato Cat"));
+                            }
+                            else{
+                                System.out.println("Sorry you can't use this card without a pair.");
+                            }
+                            continue;
                         }
                         currentPlayer.removeCard(c2 - 1);
-
                     }
                     else if (c1 == 3){
                         ArrayList<Integer> drawPile = dc.getDrawPile();
                         int newCard = drawPile.remove(0);
-                        currentPlayer.deck.add(newCard);
-                        System.out.println("The card you drew is: " + dc.getCardName(newCard));
-                        if(newCard == 2 && !currentPlayer.deck.contains(1)){
-                            System.out.println("Oh no, you got an Exploding Kitten! You are out of the game :(");
-                            players.remove(i);
-                            if(players.size() == 1){
-                                System.out.println("The game is over!");
-                                Map.Entry<Integer, Player> winner = players.entrySet().iterator().next();
-                                System.out.println("The winner is: " + winner.getValue().name);
-                                System.exit(0);
-                            }
-                        }
-                        else if(newCard == 2){
-                            currentPlayer.deck.remove(1);
-                            currentPlayer.deck.remove(2);
-                            System.out.println("Oh no, you got an Exploding Kitten! But you have been saved because of your Diffuse card :)");
-                        }
-                    }
-                    else if(c1 == 4){
+                        drawCard(i, currentPlayer, newCard);
                         i++;
-                        for(int k = 0; k < 10; k++){
-                            System.out.println("");
-                        }
+                        System.out.println();
                     }
                 }
 
             }
         }
+    }
+
+    private static void drawCard(int i, Player currentPlayer, int newCard) {
+        currentPlayer.deck.add(newCard);
+        System.out.println("The card you drew is: " + dc.getCardName(newCard));
+        if(newCard == 2 && !currentPlayer.deck.contains(1)){
+            System.out.println("Oh no, you got an Exploding Kitten! You are out of the game :(");
+            players.remove(i);
+            if(players.size() == 1){
+                System.out.println("The game is over!");
+                Map.Entry<Integer, Player> winner = players.entrySet().iterator().next();
+                System.out.println("The winner is: " + winner.getValue().name);
+                System.exit(0);
+            }
+        }
+        else if(newCard == 2){
+            currentPlayer.deck.remove(1);
+            currentPlayer.deck.remove(2);
+            System.out.println("Oh no, you got an Exploding Kitten! But you have been saved because of your Diffuse card :)");
+        }
+        System.out.println("Your turn has ended!");
     }
 
     public static void deckCreation(){
@@ -126,8 +182,7 @@ public class Main {
             String name = sc.next();
             players.put(i+1, new Player(name, startHand));
         }
-        print();
-        System.out.println(dc.createDrawPile());
+        dc.createDrawPile();
         System.out.println();
         game();
     }
