@@ -162,8 +162,9 @@ public class Main {
             }
         }
         else if(newCard == 2){
-            currentPlayer.deck.remove(1);
-            currentPlayer.deck.remove(2);
+
+            currentPlayer.deck.remove(currentPlayer.deck.indexOf(newCard));
+            currentPlayer.deck.remove(currentPlayer.deck.indexOf(1));
             System.out.println("Oh no, you got an Exploding Kitten! But you have been saved because of your Diffuse card :)");
         }
         System.out.println("Your turn has ended!");
