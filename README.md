@@ -24,6 +24,7 @@ This is Guillermo's first hackathon! He is currently taking Programming 1 at UF 
 ## What we learned
 
 Rahul - interesting Java tricks, the rules of Exploding Kittens...
+
 Guillermo - Git, Java...
 
 ## What's next for Exploding_Gators
