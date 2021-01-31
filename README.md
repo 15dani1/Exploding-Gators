@@ -7,7 +7,7 @@ Both of us like card games and thought it would be fun to work on something we e
 
 ## What it does
 
-Gator-themed version of the exploding kittens card game. Rules and Details can be found here - https://explodingkittens.com/
+Gator-themed version of the Exploding Kittens card game. Rules and Details can be found here - https://explodingkittens.com/
 
 ## How we built it
 
